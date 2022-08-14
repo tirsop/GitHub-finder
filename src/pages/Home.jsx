@@ -1,6 +1,12 @@
+// components
+import UserResults from "../components/users/UserResults"
+
+
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <>
+      <UserResults />
+    </>
   )
 }
