@@ -15,6 +15,13 @@ const githubReducer = (state, action) => {
         loading: false,
         error: null
       }
+    case 'GET_USER':
+      return {
+        ...state,
+        user: action.payload, // in singular
+        loading: false,
+        error: null
+      }
     case 'ERROR':
       return {
         ...state,
