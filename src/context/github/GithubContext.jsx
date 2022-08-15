@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react"
+import { createContext, useCallback, useReducer } from "react"
 import githubReducer from "./GithubReducer"
 
 const githubUrl = 'https://api.github.com'
@@ -32,7 +32,7 @@ export const GithubProvider = ({ children }) => {
 
 
   // get single user
-  const getUser = async (login) => {
+  const getUser = useCallback(async (login) => {
     dispatch({ type: 'LOADING' })
     try {
       const res = await fetch(`${githubUrl}/users/${login}`)
@@ -43,7 +43,7 @@ export const GithubProvider = ({ children }) => {
     catch (err) {
       dispatch({ type: 'ERROR', payload: err.message })
     }
-  }
+  }, [])
 
   const clearUsers = () => { dispatch({ type: 'CLEAR_USERS' }) }
 
