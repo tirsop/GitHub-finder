@@ -9,7 +9,7 @@ export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
     user: {},
-    repor: [],
+    repos: [],
     loading: false,
     error: null
   }

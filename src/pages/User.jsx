@@ -3,9 +3,11 @@ import { Link, useParams } from "react-router-dom"
 import { GithubContext } from "../context/github/GithubContext"
 import Spinner from "../components/layouts/Spinner"
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from "react-icons/fa"
+import RepoList from "../components/repos/RepoList"
+
 
 export default function User() {
-  const { user, getUser, loading, error } = useContext(GithubContext)
+  const { user, getUser, loading, error, getRepos, repos } = useContext(GithubContext)
 
   const {
     name,
@@ -155,6 +157,7 @@ export default function User() {
           </div>
         </div>
       </div>
+      <RepoList />
 
 
       {loading && <Spinner />}
