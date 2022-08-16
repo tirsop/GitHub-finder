@@ -9,6 +9,7 @@ export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
     user: {},
+    repor: [],
     loading: false,
     error: null
   }
@@ -37,13 +38,27 @@ export const GithubProvider = ({ children }) => {
     try {
       const res = await fetch(`${githubUrl}/users/${login}`)
       if (res.status === 404) return window.location = '/notfound'
-      const data = await res.json()   // destructure only items from all the data
+      const data = await res.json()
       dispatch({ type: 'GET_USER', payload: data })
     }
     catch (err) {
       dispatch({ type: 'ERROR', payload: err.message })
     }
   }, [])
+
+
+  // get user repos
+  const getRepos = async (login) => {
+    dispatch({ type: 'LOADING' })
+    try {
+      const res = await fetch(`${githubUrl}/users/${login}/repos`)
+      const data = await res.json()
+      dispatch({ type: 'GET_REPOS', payload: data })
+    }
+    catch (err) {
+      dispatch({ type: 'ERROR', payload: err.message })
+    }
+  }
 
   const clearUsers = () => { dispatch({ type: 'CLEAR_USERS' }) }
 
@@ -52,10 +67,12 @@ export const GithubProvider = ({ children }) => {
       value={{
         users: state.users,
         user: state.user,
+        repos: state.repos,
         loading: state.loading,
         error: state.error,
         searchUsers,
         getUser,
+        getRepos,
         clearUsers
       }}>
       {children}
