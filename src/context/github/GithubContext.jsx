@@ -50,8 +50,9 @@ export const GithubProvider = ({ children }) => {
   // get user repos
   const getRepos = async (login) => {
     dispatch({ type: 'LOADING' })
+    const params = new URLSearchParams({ sort: 'created', per_page: 10 })
     try {
-      const res = await fetch(`${githubUrl}/users/${login}/repos`)
+      const res = await fetch(`${githubUrl}/users/${login}/repos?${params}`)
       const data = await res.json()
       dispatch({ type: 'GET_REPOS', payload: data })
     }

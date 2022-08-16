@@ -33,6 +33,7 @@ export default function User() {
   const params = useParams()
   useEffect(() => {
     getUser(params.login)
+    getRepos(params.login)
   }, [getUser, params])
 
   return (
@@ -157,7 +158,7 @@ export default function User() {
           </div>
         </div>
       </div>
-      <RepoList />
+      <RepoList repos={repos} />
 
 
       {loading && <Spinner />}
